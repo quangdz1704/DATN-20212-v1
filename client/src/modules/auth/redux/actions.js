@@ -38,11 +38,11 @@ function login(user) {
                     type: AuthConstants.LOGIN_SUCCESS,
                     payload: res.data?.content?.payload
                 })
-                dispatch({ type: SocketConstants.CONNECT_SOCKET_IO })
+                // dispatch({ type: SocketConstants.CONNECT_SOCKET_IO })
             })
             .catch(err => {
                 dispatch({ type: AuthConstants.LOGIN_FAILE, payload: err?.response?.data?.messages });
-                dispatch({ type: SocketConstants.DISCONNECT_SOCKET_IO })
+                // dispatch({ type: SocketConstants.DISCONNECT_SOCKET_IO })
             })
     }
 }
@@ -53,7 +53,7 @@ function logout() {
         AuthService.logout()
             .then(res => {
                 // Do sẽ reset localStorage và redux, không cần gọi dispatch({type: AuthConstants.LOGOUT_SUCCESS});
-                dispatch({ type: SocketConstants.DISCONNECT_SOCKET_IO })
+                // dispatch({ type: SocketConstants.DISCONNECT_SOCKET_IO })
                 dispatch({ type: 'RESET' })
             })
             .catch(err => {

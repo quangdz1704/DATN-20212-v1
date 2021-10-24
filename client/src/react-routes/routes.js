@@ -4,6 +4,11 @@ import { Route, Switch } from "react-router-dom";
 import Layout from "../layout/layout";
 import Login from "../modules/auth/components/login";
 import ResetPassword from "../modules/auth/components/resetPassword";
+// Example
+import ExampleManagement1 from "../modules/example/example1/components";
+import ExampleManagementHooks1 from "../modules/example/example1/components-hooks";
+import ExampleManagement2 from "../modules/example/example2/components";
+import ExampleManagementHooks2 from "../modules/example/example2/components-hooks";
 import { Home } from "../modules/home/components";
 import { Introduction } from "../modules/intro/components";
 import { NotFound } from "../modules/not-found/components";
@@ -20,6 +25,8 @@ import { ManageLinkSystem } from "../modules/system-admin/system-link/components
 import { SystemSetting } from "../modules/system-admin/system-setting/components";
 import { AuthRoute } from "./authRoute";
 import { PrivateRoute } from "./privateRoute";
+
+
 
 class Routes extends Component {
     render() {
@@ -317,6 +324,88 @@ class Routes extends Component {
                         pageName={"manage_component"}
                         layout={Layout}
                         component={ManageComponent}
+                    />
+                    
+                    {/* Example Management */}
+                    <PrivateRoute
+                        isLoading={this.props.example1.isLoading}
+                        key={"manage-examples-1"}
+                        arrPage={[
+                            { link: "/", name: "home", icon: "fa fa-home" },
+                            {
+                                link: "/manage-examples-1",
+                                name: "manage_examples_1",
+                                icon: "fa fa-circle",
+                            },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/manage-examples-1"}
+                        path={"/manage-examples-1"}
+                        pageName={"manage_examples_1"}
+                        layout={Layout}
+                        component={ExampleManagement1}
+                    />
+
+                    <PrivateRoute
+                        isLoading={this.props.example2.isLoading}
+                        key={"manage-examples-2"}
+                        arrPage={[
+                            { link: "/", name: "home", icon: "fa fa-home" },
+                            {
+                                link: "/manage-examples-2",
+                                name: "manage_examples_2",
+                                icon: "fa fa-adjust",
+                            },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/manage-examples-2"}
+                        path={"/manage-examples-2"}
+                        pageName={"manage_examples_2"}
+                        layout={Layout}
+                        component={ExampleManagement2}
+                    />
+
+                    {/* Example Management Hooks*/}
+                    <PrivateRoute
+                        isLoading={this.props.example1.isLoading}
+                        key={"manage-examples-1"}
+                        arrPage={[
+                            { link: "/", name: "home", icon: "fa fa-home" },
+                            {
+                                link: "/manage-examples-hooks-1",
+                                name: "manage_examples_hooks_1",
+                                icon: "fa fa-circle",
+                            },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/manage-examples-hooks-1"}
+                        path={"/manage-examples-hooks-1"}
+                        pageName={"manage_examples_hooks_1"}
+                        layout={Layout}
+                        component={ExampleManagementHooks1}
+                    />
+
+                    <PrivateRoute
+                        isLoading={this.props.example2.isLoading}
+                        key={"manage-examples-2"}
+                        arrPage={[
+                            { link: "/", name: "home", icon: "fa fa-home" },
+                            {
+                                link: "/manage-examples-hooks-2",
+                                name: "manage_examples_hooks_2",
+                                icon: "fa fa-circle",
+                            },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/manage-examples-hooks-2"}
+                        path={"/manage-examples-hooks-2"}
+                        pageName={"manage_examples_hooks_2"}
+                        layout={Layout}
+                        component={ExampleManagementHooks2}
                     />
 
                     {/* NOT FOUND */}

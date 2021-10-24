@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
+import { Link } from 'react-router-dom';
 
 class Item extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class Item extends Component {
 
         return <React.Fragment>
             {
-                this.checkURL(item.path, links) &&
+                // this.checkURL(item.path, links) &&
                 <li className={window.location.pathname === item.path ? "active" : ""}>
                     <Link to={item.path}>
                         <i className={item.icon} /> <span>{translate(item.name)}</span>

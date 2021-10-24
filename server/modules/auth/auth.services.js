@@ -187,7 +187,8 @@ exports.changeAvatar = async (
 
 exports.getProfile = async (id) => {
     let user = await User.findById(id)
-        .select("-password -active -token")
+        .select("-password -active")
+        // console.log(123, user);
     if (user === null) throw ["user_not_found"];
 
     return user;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
+import { Link } from 'react-router-dom';
 
 class GroupItem extends Component {
     constructor(props) {
@@ -10,16 +10,17 @@ class GroupItem extends Component {
     }
 
     checkURL = (urlName, linkArr) => {
-        var result = false;
-        if (linkArr !== undefined) {
-            linkArr.forEach(link => {
-                if (link.url === urlName) {
-                    result = true;
-                }
-            });
-        }
+        // var result = false;
+        // if (linkArr !== undefined) {
+        //     linkArr.forEach(link => {
+        //         if (link.url === urlName) {
+        //             result = true;
+        //         }
+        //     });
+        // }
 
-        return result;
+        // return result;
+        return true
     }
 
     checkGroupItem = (groupItem, links) => {

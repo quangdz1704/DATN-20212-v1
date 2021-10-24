@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { getStorage, clearStorage } from '../config';
-import ServerResponseAlert from '../modules/alert/components/serverResponseAlert';
-import { toast } from 'react-toastify';
-import React from 'react';
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import axios from 'axios';
 // import store from '../redux/store'
 // import { AuthConstants } from '../modules/auth/redux/constants';
 import JSEncrypt from 'jsencrypt';
-import { key } from './pub.json'
+import React from 'react';
+import { toast } from 'react-toastify';
+import { clearStorage, getStorage } from '../config';
+import ServerResponseAlert from '../modules/alert/components/serverResponseAlert';
+import { key } from './pub.json';
 
 function encryptMessage(message) {
     const publicKey = key;
@@ -25,7 +25,8 @@ const AuthenticateHeader = async () => {
     return {
         "crtp": encryptMessage(window.location.pathname),
         "fgp": encryptMessage(fingerprint.toString()),
-        "utk": getStorage('jwt'),
+        // "utk": getStorage('jwt'),
+        "auth-token": getStorage('jwt'),
         "crtr": encryptMessage(getStorage('currentRole'))
     }
 }

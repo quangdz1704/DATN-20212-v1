@@ -1,5 +1,4 @@
 import { AuthConstants } from "./constants";
-import { setStorage } from '../../../config';
 
 export const CallApiStatus = {
     INITIALIZED: 0,
@@ -57,7 +56,8 @@ export function auth(state = initState, action) {
                 ...state,
                 user: action.payload,
                 isLoading: false,
-                error: null
+                error: null,
+                calledAPI: CallApiStatus.FINISHED,
             };
         
         case AuthConstants.CHECK_PASSWORD2_EXITS_SUCCESS:
@@ -80,11 +80,10 @@ export function auth(state = initState, action) {
                 isLoading: false,
                 user: {
                     _id: null,
-                    name: null,
                     email: null,
                     roles: null,
-                    company: null
                 },
+                calledAPI: CallApiStatus.FINISHED,
                 error: action.payload
             };
 

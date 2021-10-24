@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withTranslate, IntlActions } from 'react-redux-multilingual';
-import { AuthActions } from '../../auth/redux/actions';
-import { getStorage, setStorage } from '../../../config';
 import moment from "moment";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { IntlActions, withTranslate } from 'react-redux-multilingual';
+import { getStorage, setStorage } from '../../../config';
 import store from '../../../redux/store';
+import { AuthActions } from '../../auth/redux/actions';
 import './intro.css';
 
 const Header = (props) => {
@@ -33,10 +33,10 @@ const Header = (props) => {
             props.refresh();
 
             const currentRole = getStorage("currentRole");
-            props.getLinksOfRole(currentRole)
-                .then(res => {
-                    setUser(props.auth.user._id);
-                });
+            // props.getLinksOfRole(currentRole)
+            //     .then(res => {
+            //         setUser(props.auth.user._id);
+            //     });
         }
     }, [user]);
 

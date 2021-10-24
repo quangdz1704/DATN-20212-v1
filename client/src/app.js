@@ -10,7 +10,6 @@ import { getStorage, setStorage } from './config';
 import firebase from './firebase';
 import AuthAlert from './modules/alert/components/authAlert';
 import ServerDisconnectedAlert from './modules/alert/components/serverDisconnectdAlert';
-import { SocketConstants } from './modules/socket/redux/constants';
 import Routes from './react-routes/routes';
 import store from './redux/store';
 
@@ -60,7 +59,7 @@ class App extends Component {
         const userId = getStorage('userId');
         if(userId){
             const {socket} = store.getState();
-            if(!socket.connected) store.dispatch({ type: SocketConstants.CONNECT_SOCKET_IO });                                                                                                     
+            // if(!socket.connected) store.dispatch({ type: SocketConstants.CONNECT_SOCKET_IO });                                                                                                     
         }
     }
 

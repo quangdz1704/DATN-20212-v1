@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
-import { setStorage, getStorage } from '../../../config';
+import { getStorage, setStorage } from '../../../config';
 import { AuthActions } from '../../../modules/auth/redux/actions';
 
 class Roles extends Component {
@@ -16,7 +16,7 @@ class Roles extends Component {
     selectRole = async (e) => {
         this.setState({ currentRole: e.target.value });
         setStorage("currentRole", e.target.value);
-        await this.props.getLinksOfRole(e.target.value);
+        // await this.props.getLinksOfRole(e.target.value);
         var { links } = this.props.auth;
         var path = window.location.pathname;
         var linkId;
@@ -28,7 +28,7 @@ class Roles extends Component {
             }
         }
         var currentRole = getStorage("currentRole");
-        await this.props.getComponentsOfUserInLink(currentRole, linkId);
+        // await this.props.getComponentsOfUserInLink(currentRole, linkId);
     }
 
     render() {
