@@ -15,12 +15,12 @@ import { modelConfiguration } from '../modules/super-admin/module-configuration/
 import { department } from '../modules/super-admin/organizational-unit/redux/reducers';
 import { role } from '../modules/super-admin/role/redux/reducers';
 import { system } from '../modules/super-admin/system/redux/reducers';
-import { user } from '../modules/super-admin/user/redux/reducers';
 import { company } from '../modules/system-admin/company/redux/reducers';
 import { rootRoles } from "../modules/system-admin/root-role/redux/reducers";
 import { systemComponents } from "../modules/system-admin/system-component/redux/reducers";
 import { systemLinks } from '../modules/system-admin/system-link/redux/reducers';
 import { systemSetting } from '../modules/system-admin/system-setting/redux/reducers';
+import { user } from '../modules/user/redux/reducers';
 
 const appReducer = combineReducers({
     socket,
@@ -42,6 +42,7 @@ const appReducer = combineReducers({
 
     notifications,
     auth,
+    user,
 
 
     //example1

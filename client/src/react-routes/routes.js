@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router";
 import { Route, Switch } from "react-router-dom";
+import { getStorage } from "../config";
 import Layout from "../layout/layout";
 import Login from "../modules/auth/components/login";
 import ResetPassword from "../modules/auth/components/resetPassword";
@@ -23,10 +25,9 @@ import ManageRoleDefault from "../modules/system-admin/root-role/components";
 import ComponentsDefaultManagement from "../modules/system-admin/system-component/components";
 import { ManageLinkSystem } from "../modules/system-admin/system-link/components";
 import { SystemSetting } from "../modules/system-admin/system-setting/components";
+import UserManagement from "../modules/user/components-hooks";
 import { AuthRoute } from "./authRoute";
 import { PrivateRoute } from "./privateRoute";
-
-
 
 class Routes extends Component {
     render() {
@@ -41,6 +42,7 @@ class Routes extends Component {
             employeesManager,
         } = this.props;
         const { password2AlreadyExists, autoRedirectAfterQuestionAnswer } = auth;
+        const currentRole = getStorage("currentRole")
         return (
             <React.Fragment>
                 <Switch>
@@ -169,6 +171,21 @@ class Routes extends Component {
                         layout={Layout}
                         component={Home}
                     />
+                    {currentRole === "ADMIN" && <PrivateRoute
+                        isLoading={auth.isLoading}
+                        key={"users"}
+                        arrPage={[
+                            { link: "/home", name: "home", icon: "fa fa-home" },
+                            { link: "/users", name: "user_menu", icon: "fa fa-user" },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/users"}
+                        path={"/users"}
+                        pageName={"users"}
+                        layout={Layout}
+                        component={UserManagement}
+                    />}
                     <PrivateRoute
                         isLoading={this.props.company.isLoading}
                         key={"companies-management"}
@@ -368,7 +385,7 @@ class Routes extends Component {
                     />
 
                     {/* Example Management Hooks*/}
-                    <PrivateRoute
+                    {currentRole === "ADMIN" && <PrivateRoute
                         isLoading={this.props.example1.isLoading}
                         key={"manage-examples-1"}
                         arrPage={[
@@ -386,9 +403,9 @@ class Routes extends Component {
                         pageName={"manage_examples_hooks_1"}
                         layout={Layout}
                         component={ExampleManagementHooks1}
-                    />
+                    />}
 
-                    <PrivateRoute
+                    {currentRole === "ADMIN" && <PrivateRoute
                         isLoading={this.props.example2.isLoading}
                         key={"manage-examples-2"}
                         arrPage={[
@@ -406,9 +423,10 @@ class Routes extends Component {
                         pageName={"manage_examples_hooks_2"}
                         layout={Layout}
                         component={ExampleManagementHooks2}
-                    />
+                    />}
 
                     {/* NOT FOUND */}
+                    <Redirect to={{ pathname: '/home' }} />
                     <Route component={NotFound}></Route>
                 </Switch>
             </React.Fragment>

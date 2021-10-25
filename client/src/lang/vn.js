@@ -79,6 +79,7 @@ export default {
 
         menu: {
             home: "Trang chủ",
+            user_menu: "Quản lý người dùng",
             system_administration: "Quản trị hệ thống",
             manage_configuration: "Cấu hình hệ thống",
             manage_system: "Sao lưu phục hồi",

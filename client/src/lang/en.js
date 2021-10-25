@@ -77,6 +77,7 @@ export default {
 
         menu: {
             home: "Home Page",
+            user_menu: "Users management",
             system_administration: "System Administration",
             manage_configuration: "Configuration",
             manage_system: "Backup and Restore",

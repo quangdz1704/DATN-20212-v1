@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const socketio = require('socket.io');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const auth = require('./modules/auth/auth.route')
+const auth = require('./modules/auth/auth.route');
+const user = require('./modules/user/user.route');
+const example = require('./modules/example/example.route');
 // const { serverSocket } = require('./serverSocket');
 require('dotenv').config();
 const app = express();
@@ -37,6 +39,8 @@ global.isLog = false;
 
 app.use(cors());
 app.use('/auth', auth);
+app.use('/users', user);
+app.use('/examples', example);
 
 
 // serverSocket(io);

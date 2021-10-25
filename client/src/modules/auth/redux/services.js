@@ -7,6 +7,7 @@ import {
 
 export const AuthService = {
     login,
+    createUser,
     editProfile,
     getLinksOfRole,
     refresh,
@@ -34,6 +35,13 @@ function logout() {
     return sendRequest({
         url: `${ process.env.REACT_APP_SERVER }/auth/logout`,
         method: 'GET',
+    }, false, true, 'auth');
+}
+
+function createUser() {
+    return sendRequest({
+        url: `${ process.env.REACT_APP_SERVER }/auth/register`,
+        method: 'POST',
     }, false, true, 'auth');
 }
 
