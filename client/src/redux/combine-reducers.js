@@ -2,6 +2,7 @@ import { IntlReducer as Intl } from 'react-redux-multilingual';
 import { combineReducers } from 'redux';
 import { clearStorage } from '../config';
 import { auth } from '../modules/auth/redux/reducers';
+import { chart } from '../modules/chart/redux/reducers';
 //example1
 import { example1 } from "../modules/example/example1/redux/reducers";
 //example2
@@ -21,7 +22,6 @@ import { rootRoles } from "../modules/system-admin/root-role/redux/reducers";
 import { systemComponents } from "../modules/system-admin/system-component/redux/reducers";
 import { systemLinks } from '../modules/system-admin/system-link/redux/reducers';
 import { systemSetting } from '../modules/system-admin/system-setting/redux/reducers';
-
 const appReducer = combineReducers({
     socket,
     //system
@@ -52,7 +52,9 @@ const appReducer = combineReducers({
 
     Intl,
 
-    newsFeeds
+    newsFeeds,
+
+    chart,
 });
 
 const rootReducer = (state, action) => {

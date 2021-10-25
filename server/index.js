@@ -5,6 +5,7 @@ const socketio = require('socket.io');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const auth = require('./modules/auth/auth.route')
+const chart = require('./modules/chart/chart.route')
 // const { serverSocket } = require('./serverSocket');
 require('dotenv').config();
 const app = express();
@@ -37,6 +38,7 @@ global.isLog = false;
 
 app.use(cors());
 app.use('/auth', auth);
+app.use('/chart', chart);
 
 
 // serverSocket(io);

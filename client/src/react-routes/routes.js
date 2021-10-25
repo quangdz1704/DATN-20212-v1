@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Layout from "../layout/layout";
 import Login from "../modules/auth/components/login";
 import ResetPassword from "../modules/auth/components/resetPassword";
+import PowerChart from "../modules/chart/components";
 // Example
 import ExampleManagement1 from "../modules/example/example1/components";
 import ExampleManagementHooks1 from "../modules/example/example1/components-hooks";
@@ -61,6 +62,20 @@ class Routes extends Component {
                         auth={auth}
                         path="/reset-password"
                         component={ResetPassword}
+                    />
+                    <PrivateRoute
+                        // isLoading={this.props.}
+                        key={"chart"}
+                        arrPage={[
+                            { link: "/chart", name: "chart", icon: "fa fa-home" },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/chart"}
+                        path={"/chart"}
+                        pageName={"chart"}
+                        layout={Layout}
+                        component={PowerChart}
                     />
                     <PrivateRoute
                         isLoading={false}
