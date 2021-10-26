@@ -38,7 +38,7 @@ class SideBar extends Component {
                                 <img src={process.env.REACT_APP_SERVER + auth.user.avatar} className="img-circle" alt="User avatar" />
                             </div>
                             <div className="pull-left info">
-                                <p>{user.firstName} {user.surName}</p>
+                                <p>{user.name || user.firstName + " " + user.surName}</p>
                                 {this.checkURL("/notifications", links) ? (
                                     <React.Fragment>
                                         <span

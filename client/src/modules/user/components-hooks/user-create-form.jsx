@@ -90,7 +90,7 @@ function UserCreateForm(props) {
             }
         })
     }
-console.log(1111, state);
+
     return (
         <React.Fragment>
             <DialogModal
@@ -125,22 +125,22 @@ console.log(1111, state);
                     </div>
 
                     {/* Vai trò */}
-                        <div className={`form-group ${!errRole ? "" : "has-error"}`}>
-                            <label>Vai trò<span className="text-red">*</span></label>
-                            <SelectBox
-                                id={"create-user-form"}
-                                className="form-control select2"
-                                style={{ width: "100%" }}
-                                items={[
-                                    {value: "ADMIN", text: "Admin"},
-                                    {value: "CUSTOMER", text: "Customer"}
-                                ]}
-                                value={role}
-                                onChange={(value) => handleChangeRole(value)}
-                                multiple={false}
-                            />
-                            <ErrorLabel content={errRole} />
-                        </div>
+                    <div className={`form-group ${!errRole ? "" : "has-error"}`}>
+                        <label>Vai trò<span className="text-red">*</span></label>
+                        <SelectBox
+                            id={"create-user-form"}
+                            className="form-control select2"
+                            style={{ width: "100%" }}
+                            items={[
+                                {value: "ADMIN", text: "Admin"},
+                                {value: "CUSTOMER", text: "Customer"}
+                            ]}
+                            value={role}
+                            onChange={(value) => handleChangeRole(value)}
+                            multiple={false}
+                        />
+                        <ErrorLabel content={errRole} />
+                    </div>
                 </form>
             </DialogModal>
         </React.Fragment>

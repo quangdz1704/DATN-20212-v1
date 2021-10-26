@@ -13,7 +13,7 @@ import { UserImportForm } from "./user-import-form";
 
 
 function UserManagementTable(props) {
-    const getTableId = "table-manage-example1-hooks";
+    const getTableId = "table-manage-user-hooks";
     const defaultConfig = { limit: 5 }
     const getLimit = getTableConfiguration(getTableId, defaultConfig).limit;
 
@@ -120,7 +120,7 @@ function UserManagementTable(props) {
             ...state,
             currentRow: user
         });
-        window.$('#modal-edit-example-hooks').modal('show');
+        window.$('#modal-edit-user-hooks').modal('show');
     }
 
     /**
@@ -128,11 +128,12 @@ function UserManagementTable(props) {
      * @param {*} user thông tin của ví dụ cần xem
      */
     const handleShowDetailInfo = (user) => {
+        console.log('quang', user);
         setState({
             ...state,
             curentRowDetail: user,
         });
-        window.$(`#modal-detail-info-example-hooks`).modal('show')
+        window.$(`#modal-detail-info-user-hooks`).modal('show')
     }
 
     let lists = [];
@@ -141,19 +142,17 @@ function UserManagementTable(props) {
     }
 
     const totalPage = user && Math.ceil(user.totalList / perPage);
-
+console.log('statge', state);
     return (
         <React.Fragment>
             <UserEditForm
-                exampleID={currentRow && currentRow._id}
-                exampleName={currentRow && currentRow.name}
-                description={currentRow && currentRow.description}
+                id={currentRow && currentRow._id}
+                currentUser={currentRow}
             />
 
             <UserDetailInfo
-                exampleID={curentRowDetail && curentRowDetail._id}
-                exampleName={curentRowDetail && curentRowDetail.name}
-                description={curentRowDetail && curentRowDetail.description}
+                id={curentRowDetail && curentRowDetail._id}
+                currentUser={curentRowDetail}
             />
 
             <UserCreateForm
@@ -197,58 +196,62 @@ function UserManagementTable(props) {
                 </div>
 
                 {/* Danh sách các ví dụ */}
-                <table id={tableId} className="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th className="col-fixed" style={{ width: 60 }}>{translate('manage_example.index')}</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th style={{ width: "120px", textAlign: "center" }}>{translate('table.action')}
-                                <DataTableSetting
-                                    tableId={tableId}
-                                    columnArr={[
-                                        translate('manage_example.index'),
-                                        "Name",
-                                        "Email",
-                                        "Role",
-                                    ]}
-                                    setLimit={setLimit}
-                                />
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {(lists && lists.length !== 0) &&
-                            lists.map((u, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1 + (page - 1) * perPage}</td>
-                                    <td>{u.name}</td>
-                                    <td>{u.email}</td>
-                                    <td>{u.role}</td>
-                                    <td style={{ textAlign: "center" }}>
-                                        <a className="edit text-green" style={{ width: '5px' }} title={translate('manage_example.detail_info_example')} onClick={() => handleShowDetailInfo(user)}><i className="material-icons">visibility</i></a>
-                                        <a className="edit text-yellow" style={{ width: '5px' }} title={translate('manage_example.edit')} onClick={() => handleEdit(user)}><i className="material-icons">edit</i></a>
-                                        {u.role !== "ADMIN" && <DeleteNotification
-                                            content={translate('manage_example.delete')}
-                                            data={{
-                                                id: u._id,
-                                                info: u.name
-                                            }}
-                                            func={handleDelete}
-                                        />}
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
+                <div id="manage-user-wrapper">
+                    <table id={tableId} className="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th className="col-fixed" style={{ width: 60 }}>{translate('manage_example.index')}</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th style={{ width: "120px", textAlign: "center" }}>{translate('table.action')}
+                                    <DataTableSetting
+                                        tableId={tableId}
+                                        tableContainerId="manage-user-wrapper"
+                                        tableWidth={"calc(100% + 200px)"}
+                                        columnArr={[
+                                            translate('manage_example.index'),
+                                            "Name",
+                                            "Email",
+                                            "Role",
+                                        ]}
+                                        setLimit={setLimit}
+                                    />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {(lists && lists.length !== 0) &&
+                                lists.map((u, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1 + (page - 1) * perPage}</td>
+                                        <td>{u.name}</td>
+                                        <td>{u.email}</td>
+                                        <td>{u.role}</td>
+                                        <td style={{ textAlign: "center" }}>
+                                            <a className="edit text-green" style={{ width: '5px' }} title={translate('manage_example.detail_info_example')} onClick={() => handleShowDetailInfo(u)}><i className="material-icons">visibility</i></a>
+                                            <a className="edit text-yellow" style={{ width: '5px' }} title={translate('manage_example.edit')} onClick={() => handleEdit(u)}><i className="material-icons">edit</i></a>
+                                            {u.role !== "ADMIN" && <DeleteNotification
+                                                content={translate('manage_example.delete')}
+                                                data={{
+                                                    id: u._id,
+                                                    info: u.name
+                                                }}
+                                                func={handleDelete}
+                                            />}
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
 
-                {/* PaginateBar */}
-                {user && user.isLoading ?
-                    <div className="table-info-panel">{translate('confirm.loading')}</div> :
-                    (typeof lists === 'undefined' || lists.length === 0) && <div className="table-info-panel">{translate('confirm.no_data')}</div>
-                }
+                    {/* PaginateBar */}
+                    {user && user.isLoading ?
+                        <div className="table-info-panel">{translate('confirm.loading')}</div> :
+                        (typeof lists === 'undefined' || lists.length === 0) && <div className="table-info-panel">{translate('confirm.no_data')}</div>
+                    }
+                </div>
                 <PaginateBar
                     pageTotal={totalPage ? totalPage : 0}
                     currentPage={page}

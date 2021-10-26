@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import withTranslate from 'react-redux-multilingual/lib/withTranslate';
-import { DialogModal, ErrorLabel } from '../../../common-components';
-import ValidationHelper from '../../../helpers/validationHelper';
+import { DialogModal, ErrorLabel, SelectBox } from '../../../common-components';
 import { userActions } from '../redux/actions';
 
 
@@ -10,37 +9,35 @@ import { userActions } from '../redux/actions';
 function UserEditForm(props) {
     // Khởi tạo state
     const [state, setState] = useState({
-        exampleID: undefined,
-        exampleName: "",
-        description: "",
-        exampleNameError: {
-            message: undefined,
-            status: true
-        }
+        id: undefined,
+        name: "",
+        email: "",
+        role: "",
+        phone: ""
     })
 
-    const { translate, example } = props;
-    const { exampleName, description, exampleNameError, exampleID } = state;
+    const { translate, user, currentUser, id } = props;
 
     // setState từ props mới
-    if (props.exampleID !== exampleID) {
+    useEffect(() => {
         setState({
             ...state,
-            exampleID: props.exampleID,
-            exampleName: props.exampleName,
-            description: props.description,
-            exampleNameError: {
-                message: undefined,
-                status: true
-            }
+            id: id,
+            name: currentUser?.name,
+            email: currentUser?.email,
+            role: currentUser?.role,
+            phone: currentUser?.phone,
         })
-    }
+    }, [id])
 
+    const { name, phone, email, password, role, errName, errPhone, errRole, errEmail } = state;
+    console.log('------', state);
     /**
      * Hàm dùng để kiểm tra xem form đã được validate hay chưa
      */
     const isFormValidated = () => {
-        if (!exampleNameError.status) {
+        const { errName, errPhone, errRole, errEmail } = state;
+        if (errName || errPhone || errEmail || errRole) {
             return false;
         }
         return true;
@@ -52,24 +49,8 @@ function UserEditForm(props) {
      */
     const save = () => {
         if (isFormValidated) {
-            props.editUser(exampleID, { exampleName, description });
+            props.editUser(id, { name, email, phone, role });
         }
-    }
-
-
-    /**
-     * Hàm xử lý khi tên ví dụ thay đổi
-     * @param {*} e 
-     */
-    const handleExampleName = (e) => {
-        const { value } = e.target;
-        let result = ValidationHelper.validateName(translate, value, 6, 255);
-
-        setState({
-            ...state,
-            exampleName: value,
-            exampleNameError: result
-        });
     }
 
 
@@ -77,37 +58,96 @@ function UserEditForm(props) {
      * Hàm xử lý khi mô tả ví dụ thay đổi
      * @param {*} e 
      */
-    const handleExampleDescription = (e) => {
+     const handlePhone = (e) => {
         const { value } = e.target;
         setState({
             ...state,
-            description: value
+            phone: value
+        });
+    }
+
+    /**
+     * Hàm xử lý khi mô tả ví dụ thay đổi
+     * @param {*} e 
+     */
+    const handleEmail = (e) => {
+        const { value } = e.target;
+        setState({
+            ...state,
+            email: value
+        });
+    }
+
+    /**
+     * Hàm xử lý khi mô tả ví dụ thay đổi
+     * @param {*} e 
+     */
+    const handleName = (e) => {
+        const { value } = e.target;
+        setState({
+            ...state,
+            name: value
+        });
+    }
+
+    const handleChangeRole = (value) => {
+        setState(state => {
+            return {
+                ...state,
+                role: value[0]
+            }
         })
     }
+
+    console.log('state', 0, state);
 
     return (
         <React.Fragment>
             <DialogModal
-                modalID={`modal-edit-example-hooks`} isLoading={example.isLoading}
-                formID={`form-edit-example-hooks`}
+                modalID={`modal-edit-user-hooks`} isLoading={user.isLoading}
+                formID={`form-edit-user-hooks`}
                 title={translate('manage_example.edit_title')}
                 disableSubmit={!isFormValidated}
                 func={save}
                 size={50}
                 maxWidth={500}
             >
-                <form id={`form-edit-example-hooks`}>
-                    {/* Tên ví dụ */}
-                    <div className={`form-group ${exampleNameError ? "" : "has-error"}`}>
-                        <label>{translate('manage_example.exampleName')}<span className="text-red">*</span></label>
-                        <input type="text" className="form-control" value={exampleName} onChange={handleExampleName} />
-                        <ErrorLabel content={exampleNameError.message} />
+                <form id={`form-edit-user-hooks`}>
+                    {/* Tên */}
+                    <div className={`form-group ${!errName ? "" : "has-error"}`}>
+                        <label>Tên<span className="text-red">*</span></label>
+                        <input type="text" className="form-control" value={name} onChange={handleName}></input>
+                        <ErrorLabel content={errName} />
+                    </div>
+                    {/* email */}
+                    <div className={`form-group ${!errEmail ? "" : "has-error"}`}>
+                        <label>Email<span className="text-red">*</span></label>
+                        <input type="text" className="form-control" value={email} onChange={handleEmail}></input>
+                        <ErrorLabel content={errEmail} />
+                    </div>
+                    {/* số đth */}
+                    <div className={`form-group ${!errPhone ? "" : "has-error"}`}>
+                        <label>Số điện thoại<span className="text-red">*</span></label>
+                        <input type="text" className="form-control" value={phone} onChange={handlePhone}></input>
+                        <ErrorLabel content={errPhone} />
                     </div>
 
-                    {/* Mô tả ví dụ */}
-                    <div className={`form-group`}>
-                        <label>{translate('manage_example.description')}</label>
-                        <input type="text" className="form-control" value={description} onChange={handleExampleDescription} />
+                    {/* Vai trò */}
+                    <div className={`form-group ${!errRole ? "" : "has-error"}`}>
+                        <label>Vai trò<span className="text-red">*</span></label>
+                        <SelectBox
+                            id={"create-user-form-"+id}
+                            className="form-control select2"
+                            style={{ width: "100%" }}
+                            items={[
+                                {value: "ADMIN", text: "Admin"},
+                                {value: "CUSTOMER", text: "Customer"}
+                            ]}
+                            value={role}
+                            onChange={(value) => handleChangeRole(value)}
+                            multiple={false}
+                        />
+                        <ErrorLabel content={errRole} />
                     </div>
                 </form>
             </DialogModal>
@@ -116,8 +156,8 @@ function UserEditForm(props) {
 }
 
 function mapState(state) {
-    const example = state.example1;
-    return { example }
+    const user = state.user;
+    return { user }
 }
 
 const actions = {

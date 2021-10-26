@@ -164,6 +164,6 @@ exports.editUser = async ( id, data) => {
 
 // Xóa một Ví dụ
 exports.deleteUser = async ( id) => {
-    let example = User.findByIdAndDelete({ _id: id });
+    let example = User.findByIdAndDelete(id);
     return example;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import withTranslate from 'react-redux-multilingual/lib/withTranslate';
 import { DialogModal } from '../../../common-components';
@@ -6,46 +6,58 @@ import { DialogModal } from '../../../common-components';
 
 const UserDetailInfo = (props) => {
     const [state, setState] = useState({
-        exampleID: undefined,
+        id: undefined,
     })
 
-    const { translate, example } = props;
-    const { exampleID } = state;
+    const { translate, user, currentUser, id } = props;
 
     // Nhận giá trị từ component cha
-    if (props.exampleID !== exampleID) {
+    useEffect(()=> {
         setState({
             ...state,
-            exampleID: props.exampleID,
-            exampleName: props.exampleName,
-            description: props.description,
+            id: id,
+            name: currentUser?.name,
+            email: currentUser?.email,
+            phone: currentUser?.phone,
+            role: currentUser?.role,
         })
-    }
+    }, [id])
 
-    const { exampleName, description } = state
+    const { name, email, phone, role } = state
 
     return (
         <React.Fragment>
             <DialogModal
-                modalID={`modal-detail-info-example-hooks`} isLoading={example.isLoading}
-                title={translate('manage_example.detail_info_example')}
-                formID={`form-detail-example-hooks`}
+                modalID={`modal-detail-info-user-hooks`} isLoading={user.isLoading}
+                title={`Thông tin cá nhân: ${name}`}
+                formID={`form-detail-user-hooks`}
                 size={50}
                 maxWidth={500}
                 hasSaveButton={false}
                 hasNote={false}
             >
-                <form id={`form-detail-example-hooks`}>
-                    {/* Tên ví dụ */}
+                <form id={`form-detail-user-hooks`}>
+                    {/* Tên */}
                     <div className={`form-group`}>
-                        <label>{translate('manage_example.exampleName')}:</label>
-                        <span> {exampleName}</span>
+                        <label>Tên:</label>
+                        <span> {name}</span>
                     </div>
 
-                    {/* Mô tả ví dụ */}
+                    {/* Email*/}
                     <div className={`form-group`}>
-                        <label>{translate('manage_example.description')}:</label>
-                        <span> {description}</span>
+                        <label>Email:</label>
+                        <span> {email}</span>
+                    </div>
+                     
+                    {/* Số điện thoại */}
+                    <div className={`form-group`}>
+                        <label>Số điện thoại:</label>
+                        <span> {phone}</span>
+                    </div>
+                    {/* Vai trò */}
+                    <div className={`form-group`}>
+                        <label>Vai trò:</label>
+                        <span> {role}</span>
                     </div>
                 </form>
             </DialogModal>
@@ -54,8 +66,8 @@ const UserDetailInfo = (props) => {
 }
 
 function mapStateToProps(state) {
-    const example = state.example1;
-    return { example };
+    const user = state.user;
+    return { user };
 }
 
 const connectedUserDetailInfo = React.memo(connect(mapStateToProps, null)(withTranslate(UserDetailInfo)));
