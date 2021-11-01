@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const PowerSchema = new Schema({
     time: {
-        type: Date
+        type: String
     },
     heater:{
         type: Number

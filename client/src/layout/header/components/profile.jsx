@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
-import { ApiImage } from '../../../common-components';
 import { AuthActions } from '../../../modules/auth/redux/actions';
 
 class Profile extends Component {
@@ -35,7 +34,14 @@ class Profile extends Component {
                                 <a style={{ width: '100%' }} href="#modal-security" data-toggle="modal" className="btn btn-default btn-flat"><i className="fa fa-gear"></i> {translate('auth.security.label')} </a>
                             </div>
                             <div style={{ marginTop: '10px' }} className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <button style={{ width: '100%' }} type="button" className="btn btn-default btn-flat pull-right" onClick={this.props.logout}><i className="fa fa-sign-out"></i> {translate('auth.logout')} </button>
+                                <button style={{ width: '100%' }} type="button" className="btn btn-default btn-flat pull-right" 
+                                    onClick={
+                                        this.props.logout
+                                        // history.push("/login")
+                                    }
+                                >
+                                <i className="fa fa-sign-out"></i> {translate('auth.logout')} 
+                                </button>
                             </div>
                             <div style={{ marginTop: '10px' }} className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <button style={{ width: '100%' }} type="button" className="btn btn-default btn-flat" onClick={this.props.logoutAllAccount}><i className="fa fa-power-off"></i> {translate('auth.logout_all_account')} </button>

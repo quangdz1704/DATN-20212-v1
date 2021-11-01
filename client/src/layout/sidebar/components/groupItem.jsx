@@ -41,7 +41,7 @@ class GroupItem extends Component {
         return (
             <React.Fragment>
                 {
-                    this.checkGroupItem(groupItem.list, links) &&
+                    // this.checkGroupItem(groupItem.list, links) &&
                     <li className="treeview" >
                         <a href="">
                             <i className={groupItem.icon} /> <span>{translate(groupItem.name)}</span>

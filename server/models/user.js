@@ -8,6 +8,10 @@ const UserSchema = new Schema({
     surName: {
         type: String
     },
+    name: {
+        type: String,
+        required: true
+    },
     gender: {
         type: String
     },

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withTranslate } from "react-redux-multilingual";
 import { Link } from "react-router-dom";
+import { getStorage } from "../../../config";
 import GroupItem from "./groupItem";
 import Item from "./item";
 
@@ -9,6 +10,7 @@ class SideBar extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.currentRole = getStorage("currentRole")
     }
 
     checkURL = (urlName, linkArr) => {
@@ -36,7 +38,7 @@ class SideBar extends Component {
                                 <img src={process.env.REACT_APP_SERVER + auth.user.avatar} className="img-circle" alt="User avatar" />
                             </div>
                             <div className="pull-left info">
-                                <p>{user.firstName} {user.surName}</p>
+                                <p>{user.name || user.firstName + " " + user.surName}</p>
                                 {this.checkURL("/notifications", links) ? (
                                     <React.Fragment>
                                         <span
@@ -68,6 +70,16 @@ class SideBar extends Component {
                                     icon: "fa fa-home",
                                 }}
                             />
+
+                            {/* Trang chủ */}
+                            {this.currentRole === "ADMIN" && <Item
+                                item={{
+                                    name: "menu.user_menu",
+                                    path: "/users",
+                                    icon: "fa fa-user",
+                                }}
+                            />
+                            }
 
                             {/* Tài khoản cá nhân */}
                             <GroupItem

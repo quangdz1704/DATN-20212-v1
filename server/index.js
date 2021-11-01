@@ -4,8 +4,14 @@ const mongoose = require('mongoose');
 const socketio = require('socket.io');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+<<<<<<< HEAD
 const auth = require('./modules/auth/auth.route')
 const chart = require('./modules/chart/chart.route')
+=======
+const auth = require('./modules/auth/auth.route');
+const user = require('./modules/user/user.route');
+const example = require('./modules/example/example.route');
+>>>>>>> a58e1f40bac5862770e0319d4445ebc2cc0ebc9a
 // const { serverSocket } = require('./serverSocket');
 require('dotenv').config();
 const app = express();
@@ -39,6 +45,8 @@ global.isLog = false;
 app.use(cors());
 app.use('/auth', auth);
 app.use('/chart', chart);
+app.use('/users', user);
+app.use('/examples', example);
 
 
 // serverSocket(io);

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Line } from 'react-chartjs-2';
 import { connect } from "react-redux";
 import { withTranslate } from "react-redux-multilingual";
-import { PowerActions } from "../redux/actions";
+import { ChartActions } from "../redux/actions";
 
 const convertDataToChart =(data)=> {
     const label = [];
@@ -33,20 +33,20 @@ const convertDataToChart =(data)=> {
         dataChart.workingAirConditionor.push(sumWorkingACInPeriod);
         dataChart.topFloor.push(sumTopFloorInPeriod);
 
-         sumHeaterInPeriod = 0;
-       sumLightInPeriod = 0;
-       sumSocketInPeriod = 0;
-       sumRoomACInPeriod = 0;
-       sumWorkingACInPeriod = 0;
-       sumTopFloorInPeriod = 0;
+        sumHeaterInPeriod = 0;
+        sumLightInPeriod = 0;
+        sumSocketInPeriod = 0;
+        sumRoomACInPeriod = 0;
+        sumWorkingACInPeriod = 0;
+        sumTopFloorInPeriod = 0;
       }
       else{
-         sumHeaterInPeriod += data[i].heater || 0 ;
-          sumLightInPeriod += data[i].lightning || 0 ;
-          sumSocketInPeriod += data[i].powerSocketket || 0 ;
-          sumRoomACInPeriod += data[i].roomAirConditionor ||0 ;
-          sumWorkingACInPeriod += data[i].workingAirConditionor || 0 ;
-          sumTopFloorInPeriod += data[i].topFloor || 0 ;
+        sumHeaterInPeriod += data[i].heater || 0 ;
+        sumLightInPeriod += data[i].lightning || 0 ;
+        sumSocketInPeriod += data[i].powerSocketket || 0 ;
+        sumRoomACInPeriod += data[i].roomAirConditionor ||0 ;
+        sumWorkingACInPeriod += data[i].workingAirConditionor || 0 ;
+        sumTopFloorInPeriod += data[i].topFloor || 0 ;
       }
     }
 return {
@@ -139,7 +139,7 @@ function mapState(state) {
 }
 
 const actions = {
-    getPowerData: PowerActions.getPowerData,
+    getPowerData: ChartActions.getPowerData,
 }
 
 const connectedPowerChart = connect(mapState, actions)(withTranslate(PowerChart));

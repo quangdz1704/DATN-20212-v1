@@ -53,6 +53,7 @@ exports.register = async (data) => {
         // code: text,
         firstName: data.firstName,
         surName: data.surName,
+        name: data.name,
         password: hashPassword,
         // birthday: dateISO,
         email: data.email,
