@@ -78,6 +78,10 @@ export default {
         },
 
         menu: {
+            dashboard: "Dashboard",
+            power_chart: "Công suất tiêu thụ",
+            current_chart: "Dòng điện tiêu thụ",
+            voltage_chart: "Điện năng tiêu thụ",
             home: "Trang chủ",
             user_menu: "Quản lý người dùng",
             system_administration: "Quản trị hệ thống",
@@ -252,6 +256,7 @@ export default {
 
             user_guide: "Hướng dẫn sử dụng",
             user_guide_detail: "Chi tiết hướng dẫn sử dụng",
+
         },
 
         intro: {

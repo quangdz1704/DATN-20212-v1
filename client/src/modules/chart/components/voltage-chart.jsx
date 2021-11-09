@@ -23,6 +23,7 @@ const getColor = (sum) =>{
     }
   }
 }
+
 const convertDataToChart =(data)=> {
     const labelChart = [];
     const dataChart = [];

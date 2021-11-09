@@ -55,7 +55,7 @@ class SideBar extends Component {
                                         </Link>
                                     </React.Fragment>
                                 ) : (
-                                    <p style={{ fontSize: "10px" }}>
+                                    <p style={{ fontSize: "10px" }} >
                                         <i className="fa fa-circle text-success"></i> Online{" "}
                                     </p>
                                 )}
@@ -161,6 +161,30 @@ class SideBar extends Component {
                                             name: "menu.manage_examples_hooks_2",
                                             icon: "fa fa-adjust",
                                             path: "/manage-examples-hooks-2",
+                                        },
+                                    ],
+                                }}
+                            />
+                            {/* Biểu đồ */}
+                            <GroupItem
+                                groupItem={{
+                                    name: "menu.dashboard",
+                                    icon: "fa fa-edit",
+                                    list: [
+                                        {
+                                            name: "menu.voltage_chart",
+                                            icon: "fa fa-circle",
+                                            path: "/voltage-chart",
+                                        },
+                                        {
+                                            name: "menu.current_chart",
+                                            icon: "fa fa-circle",
+                                            path: "/current-chart",
+                                        },
+                                        {
+                                            name: "menu.power_chart",
+                                            icon: "fa fa-adjust",
+                                            path: "/power-chart",
                                         },
                                     ],
                                 }}

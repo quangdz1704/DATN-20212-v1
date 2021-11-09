@@ -6,7 +6,9 @@ import { getStorage } from "../config";
 import Layout from "../layout/layout";
 import Login from "../modules/auth/components/login";
 import ResetPassword from "../modules/auth/components/resetPassword";
-import PowerChart from "../modules/chart/components";
+import { CurrentChart } from "../modules/chart/components/current-chart";
+import { PowerChart } from "../modules/chart/components/power-chart";
+import { VoltageChart } from "../modules/chart/components/voltage-chart";
 // Example
 import ExampleManagement1 from "../modules/example/example1/components";
 import ExampleManagementHooks1 from "../modules/example/example1/components-hooks";
@@ -67,17 +69,45 @@ class Routes extends Component {
                     />
                     <PrivateRoute
                         // isLoading={this.props.}
-                        key={"chart"}
+                        key={"power-chart"}
                         arrPage={[
-                            { link: "/chart", name: "chart", icon: "fa fa-home" },
+                            { link: "/power-chart", name: "power-chart", icon: "fa fa-home" },
                         ]}
                         auth={auth}
                         exact={true}
-                        link={"/chart"}
-                        path={"/chart"}
-                        pageName={"chart"}
+                        link={"/power-chart"}
+                        path={"/power-chart"}
+                        pageName={"power-chart"}
                         layout={Layout}
                         component={PowerChart}
+                    />
+                    <PrivateRoute
+                        // isLoading={this.props.}
+                        key={"voltage-chart"}
+                        arrPage={[
+                            { link: "/voltage-chart", name: "voltage-chart", icon: "fa fa-home" },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/voltage-chart"}
+                        path={"/voltage-chart"}
+                        pageName={"voltage-chart"}
+                        layout={Layout}
+                        component={VoltageChart}
+                    />
+                    <PrivateRoute
+                        // isLoading={this.props.}
+                        key={"current-chart"}
+                        arrPage={[
+                            { link: "/current-chart", name: "current-chart", icon: "fa fa-home" },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/current-chart"}
+                        path={"/current-chart"}
+                        pageName={"current-chart"}
+                        layout={Layout}
+                        component={CurrentChart}
                     />
                     <PrivateRoute
                         isLoading={false}

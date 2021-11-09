@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from "react";
-import { Line } from 'react-chartjs-2';
+import Chart from "react-apexcharts";
 import { connect } from "react-redux";
 import { withTranslate } from "react-redux-multilingual";
 import { ChartActions } from "../redux/actions";
@@ -49,6 +49,7 @@ const convertDataToChart =(data)=> {
         sumTopFloorInPeriod += data[i].topFloor || 0 ;
       }
     }
+    console.log("res", label, dataChart);
 return {
   label,
   dataChart
@@ -73,9 +74,69 @@ function CurrentChart(props) {
         }
     }, [chart.current])
 
+    const state = {
+      options: {
+        chart: {
+          id: "basic-bar",
+          type: "area",
+          background: '#fff'
+        },
+        xaxis: {
+          categories: label
+        },
+        yaxis:{
+          labels:{
+            formatter: (val) => {return Math.round(val * 100) / 100}
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        tooltip: {
+          x: {
+            format: 'dd/MM/yy HH:mm'
+          },
+        },
+      },
+      series: [{
+        name: 'Heater',
+        data: dataChart.heater
+      }, 
+      {
+        name: 'Lightning',
+        data: dataChart.lightning
+      },
+      {
+        name: 'Power Socket',
+        data: dataChart.powerSocket
+      },
+      {
+        name: 'Room Conditionor',
+        data: dataChart.roomAirConditionor
+      },
+      {
+        name: 'Working Conditionor',
+        data: dataChart.workingAirConditionor
+      },
+      {
+        name: 'Top floor',
+        data: dataChart.topFloor
+      }
+    ],
+    };
+
     return (
-        <React.Fragment>
-            <Line
+          <div style={{marginLeft: 300}}>
+          <Chart
+              options={state.options}
+              series={state.series}
+              // type="bar"
+              width="1000"
+            />
+            {/* <Line
             data={{
               labels: label,
               datasets: [
@@ -133,8 +194,8 @@ function CurrentChart(props) {
                 position: "bottom"
               }
             }}
-        />
-        </React.Fragment>
+        /> */}
+        </div>
     )
 }
 
